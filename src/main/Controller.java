@@ -7,6 +7,8 @@ import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
 
+import java.io.File;
+
 public class Controller {
 
     @FXML
@@ -22,9 +24,13 @@ public class Controller {
     void initialize(){}
 
     public void openAct(ActionEvent event) {
-        log.setText("Open File(");
+        
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open File:");
-        fileChooser.showOpenDialog(null);
+
+        File file = fileChooser.showOpenDialog(null);
+        if(file != null){
+            log.setText("Open File(" + file + ")");
+        }
     }
 }
