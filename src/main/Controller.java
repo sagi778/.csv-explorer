@@ -60,6 +60,7 @@ public class Controller {
         log.setText("New Column");
         TableColumn col = new TableColumn("Column");
         table.getColumns().addAll(col);
+        table.getItems().addAll(null,null);
 
     }
 }
