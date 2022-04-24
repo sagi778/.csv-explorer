@@ -49,7 +49,8 @@ public class Controller {
         File file = fileChooser.showOpenDialog(null);
         if(file != null){
             Csv df = new Csv(file);
-            log.setText("> Open File(" + file + ")");
+            String txt = log.getText() + "\r\n";
+            log.setText(txt + "> Open File(" + file + ")");
 
         }
     }
