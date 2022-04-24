@@ -5,10 +5,7 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 import main.file_reader.Csv;
 
@@ -18,11 +15,12 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
-import main.file_reader.data_types.*;
 
 import javax.security.auth.callback.Callback;
 
 public class Controller {
+
+    private static int SIZE = 10;
 
     @FXML
     Tab viz;
@@ -31,13 +29,17 @@ public class Controller {
     Tab df;
 
     @FXML
-    TextField log;
+    TextArea log;
 
     @FXML
     TableView table;
 
+
+
     @FXML
-    void initialize(){}
+    void initialize(){
+
+    }
 
     public void openAct(ActionEvent event) {
 
@@ -47,20 +49,27 @@ public class Controller {
         File file = fileChooser.showOpenDialog(null);
         if(file != null){
             Csv df = new Csv(file);
-            log.setText("Open File(" + file + ")");
+            log.setText("> Open File(" + file + ")");
 
         }
     }
 
     public void newAct(ActionEvent event) {
-        log.setText("New File");
+        String txt = log.getText() + "\r\n";
+        log.setText(txt + "> New File");
     }
 
     public void addColumn(ActionEvent event) {
-        log.setText("New Column");
-        TableColumn col = new TableColumn("Column");
-        table.getColumns().addAll(col);
-        table.getItems().addAll(null,null);
+        String txt = log.getText() + "\r\n";
+        log.setText(txt + "> New Column");
+        //TableColumn col = new TableColumn("Column");
+        //table.getColumns().addAll(col);
+        //table.getItems().addAll(null,null);
 
+    }
+
+    public void saveAct(ActionEvent event) {
+        String txt = log.getText() + "\r\n";
+        log.setText(txt + "> Save File");
     }
 }
