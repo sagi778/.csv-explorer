@@ -4,7 +4,6 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TreeView?>
@@ -62,12 +61,7 @@
                                 <HBox layoutX="3.0" layoutY="4.0" prefHeight="704.0" prefWidth="792.0">
                                     <children>
                                         <TreeView prefHeight="200.0" prefWidth="200.0" />
-                                        <TableView fx:id="table" prefHeight="733.0" prefWidth="671.0">
-                                            <columns>
-                                                <TableColumn prefWidth="75.0" text="C1" />
-                                                <TableColumn prefWidth="75.0" text="C2" />
-                                            </columns>
-                                        </TableView>
+                                        <TableView fx:id="table" prefHeight="733.0" prefWidth="671.0" />
                                         <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#addColumn" prefHeight="25.0" prefWidth="30.0" text="+" />
                                     </children>
                                 </HBox>
