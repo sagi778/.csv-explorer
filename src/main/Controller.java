@@ -4,10 +4,15 @@ import javafx.beans.InvalidationListener;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.FileChooser;
+import javafx.util.converter.IntegerStringConverter;
 import main.file_reader.Csv;
+import main.file_reader.Person;
 
 import java.io.File;
 import java.util.Collection;
@@ -32,13 +37,46 @@ public class Controller {
     TextArea log;
 
     @FXML
-    TableView table;
-
+    TableView table = new TableView<Person>();
 
 
     @FXML
     void initialize(){
 
+        TableColumn firstNameColumn = new TableColumn< Person,String >("firstName");
+        firstNameColumn.setCellValueFactory(new PropertyValueFactory<Person, String>("firstName"));
+        firstNameColumn.setCellFactory( TextFieldTableCell.forTableColumn() );
+        firstNameColumn.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Person, String>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<Person, String> event) {
+                Person p = event.getRowValue();
+                p.setFirstName(event.getNewValue());
+            }
+        });
+
+        TableColumn ageColumn = new TableColumn< Person,String >("age");
+        ageColumn.setCellValueFactory(new PropertyValueFactory<Person, String>("age"));
+        ageColumn.setCellFactory( TextFieldTableCell.forTableColumn(new IntegerStringConverter()) );
+        ageColumn.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Person, String>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<Person, String> event) {
+                Person p = event.getRowValue();
+                p.setAge(event.getNewValue());
+            }
+        });
+
+        table.getColumns().add(firstNameColumn);
+        table.getColumns().add(ageColumn);
+
+        //add rows
+        table.getItems().add(new Person("moshe", "cohen", 12));
+        table.getItems().add(new Person("moshe", "cohen", 12));
+        table.getItems().add( new Person("sdfsdf","sdfsd",234));
+
+        //table settings
+        table.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
+        table.setEditable(true);
+        table.setTableMenuButtonVisible(true);
     }
 
     public void openAct(ActionEvent event) {
