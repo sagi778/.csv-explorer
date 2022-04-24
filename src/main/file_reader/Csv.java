@@ -10,9 +10,10 @@ public class Csv {
     private File file = null;
     private String path = "";
     private int rows = 0;
-    private String[] columns = null;
+    private Column[] columns = null;
 
     public Csv(File file){
+
         file = file;
         path = file.getPath();
         BufferedReader reader = null;
@@ -21,17 +22,27 @@ public class Csv {
         try{
             reader = new BufferedReader(new FileReader(file));
 
-            setColumns(reader); 
-
             while( (line = reader.readLine())!= null ){
-                String[] row = line.split(",");
-                //rows += 1;
 
-                for(String index : row){
-                    System.out.println(index);
-                    //columns += 1;
+                if( columns == null ){ //set headers
+
+                    String[] headers = line.split(",");
+                    columns = new Column[headers.length];
+
+                    for(int i=0; i<headers.length; i++){
+                        columns[i] = new Column();
+                        columns[i].setColName( headers[i] );
+                    }
                 }
-                System.out.println( );
+                else{ //set data
+                    String[] row = line.split(",");
+                    rows += 1;
+
+                    for(int i=0; i<row.length; i++){
+                        columns[i].addDataRow( row[i] );
+                    }
+                }
+
             }
         }
         catch(Exception e){
@@ -44,19 +55,6 @@ public class Csv {
                 e.printStackTrace();
             }
         }
-    }
-
-    private void setColumns( BufferedReader reader) throws IOException {
-
-        String line = "";
-
-        while( (line = reader.readLine())!= null && this.columns == null ){
-            this.columns = line.split(",");
-        }
-    }
-
-    public String[] getColumns(){
-        return this.columns;
     }
 
     public File getFile() {
