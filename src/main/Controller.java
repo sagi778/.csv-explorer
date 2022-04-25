@@ -1,82 +1,46 @@
 package main;
 
-import javafx.beans.InvalidationListener;
-import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.FileChooser;
-import javafx.util.converter.IntegerStringConverter;
 import main.file_reader.Csv;
-import main.file_reader.Person;
-
+import javafx.scene.control.Button;
 import java.io.File;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
-
-
-import javax.security.auth.callback.Callback;
 
 public class Controller {
 
-    private static int SIZE = 10;
+    private static int DEFAULT_SIZE = 10;
 
     @FXML
-    Tab viz;
+    private Tab viz;
 
     @FXML
-    Tab df;
+    private Tab df;
 
     @FXML
-    TextArea log;
+    private TextArea log;
 
     @FXML
-    TableView table = new TableView<Person>();
+    private GridPane grid;
 
+    private TextField[][] tf;
+    private Button[] headers;
 
     @FXML
     void initialize(){
 
-        TableColumn firstNameColumn = new TableColumn< Person,String >("firstName");
-        firstNameColumn.setCellValueFactory(new PropertyValueFactory<Person, String>("firstName"));
-        firstNameColumn.setCellFactory( TextFieldTableCell.forTableColumn() );
-        firstNameColumn.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Person, String>>() {
-            @Override
-            public void handle(TableColumn.CellEditEvent<Person, String> event) {
-                Person p = event.getRowValue();
-                p.setFirstName(event.getNewValue());
-            }
-        });
 
-        TableColumn ageColumn = new TableColumn< Person,String >("age");
-        ageColumn.setCellValueFactory(new PropertyValueFactory<Person, String>("age"));
-        ageColumn.setCellFactory( TextFieldTableCell.forTableColumn(new IntegerStringConverter()) );
-        ageColumn.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Person, String>>() {
-            @Override
-            public void handle(TableColumn.CellEditEvent<Person, String> event) {
-                Person p = event.getRowValue();
-                p.setAge(event.getNewValue());
-            }
-        });
-
-        table.getColumns().add(firstNameColumn);
-        table.getColumns().add(ageColumn);
-
-        //add rows
-        table.getItems().add(new Person("moshe", "cohen", 12));
-        table.getItems().add(new Person("moshe", "cohen", 12));
-        table.getItems().add( new Person("sdfsdf","sdfsd",234));
-
-        //table settings
-        table.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
-        table.setEditable(true);
-        table.setTableMenuButtonVisible(true);
     }
 
     public void openAct(ActionEvent event) {
@@ -94,9 +58,39 @@ public class Controller {
     }
 
     public void newAct(ActionEvent event) {
+
+        tf = new TextField[DEFAULT_SIZE][DEFAULT_SIZE];
+        headers = new Button[tf.length];
+
+        for(int col=0; col<DEFAULT_SIZE; col++){
+            for(int row=0; row<DEFAULT_SIZE; row++){
+
+                if( isHeader( row ) ){
+                    headers[col] = new Button("Column" + col);
+                    headers[col].setPrefSize(90,30);
+                    grid.add( headers[col], col,row );
+                }
+                else {
+                    tf[col][row] = new TextField();
+                    tf[col][row].setPrefSize(90, 30);
+                    tf[col][row].setAlignment(Pos.CENTER);
+                    tf[col][row].setFont(Font.font(null, FontWeight.LIGHT, 11));
+                    grid.add( tf[col][row], col,row );
+                }
+
+            }
+        }
+
         String txt = log.getText() + "\r\n";
         log.setText(txt + "> New File");
     }
+
+    private boolean isHeader(int row){
+        if( row == 0 )
+            return true;
+        return false;
+    }
+
 
     public void addColumn(ActionEvent event) {
         String txt = log.getText() + "\r\n";
