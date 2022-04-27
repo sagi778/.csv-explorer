@@ -14,6 +14,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.FileChooser;
+import main.data_frame.Column;
 import main.file_reader.Csv;
 import javafx.scene.control.Button;
 import java.io.File;
@@ -34,7 +35,7 @@ public class Controller {
     @FXML
     private GridPane grid;
 
-    private TextField[][] tf;
+    private TextField[] textFields;
     private Button[] headers;
 
     @FXML
@@ -59,27 +60,14 @@ public class Controller {
 
     public void newAct(ActionEvent event) {
 
-        tf = new TextField[DEFAULT_SIZE][DEFAULT_SIZE];
-        headers = new Button[tf.length];
+        textFields = new TextField[DEFAULT_SIZE];
 
-        for(int col=0; col<DEFAULT_SIZE; col++){
-            for(int row=0; row<DEFAULT_SIZE; row++){
+        for(int cols=0; cols<DEFAULT_SIZE; cols++){
 
-                if( isHeader( row ) ){
-                    headers[col] = new Button("Column" + col);
-                    headers[col].setPrefSize(90,30);
-                    grid.add( headers[col], col,row );
-                }
-                else {
-                    tf[col][row] = new TextField();
-                    tf[col][row].setPrefSize(90, 30);
-                    tf[col][row].setAlignment(Pos.CENTER);
-                    tf[col][row].setFont(Font.font(null, FontWeight.LIGHT, 11));
-                    grid.add( tf[col][row], col,row );
-                }
-
-            }
+            Column col = new Column(textFields,cols);
+            col.addDataColumn(grid);
         }
+
 
         String txt = log.getText() + "\r\n";
         log.setText(txt + "> New File");
@@ -89,16 +77,6 @@ public class Controller {
         if( row == 0 )
             return true;
         return false;
-    }
-
-
-    public void addColumn(ActionEvent event) {
-        String txt = log.getText() + "\r\n";
-        log.setText(txt + "> New Column");
-        //TableColumn col = new TableColumn("Column");
-        //table.getColumns().addAll(col);
-        //table.getItems().addAll(null,null);
-
     }
 
     public void saveAct(ActionEvent event) {
