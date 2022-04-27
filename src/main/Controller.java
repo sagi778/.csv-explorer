@@ -73,12 +73,6 @@ public class Controller {
         log.setText(txt + "> New File");
     }
 
-    private boolean isHeader(int row){
-        if( row == 0 )
-            return true;
-        return false;
-    }
-
     public void saveAct(ActionEvent event) {
         String txt = log.getText() + "\r\n";
         log.setText(txt + "> Save File");
