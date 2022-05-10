@@ -6,18 +6,19 @@ import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.FileChooser;
 import main.data_frame.Column;
+import main.data_frame.Table;
 import main.file_reader.Csv;
 import javafx.scene.control.Button;
+
+import javax.swing.*;
 import java.io.File;
+import java.util.ArrayList;
 
 public class Controller {
 
@@ -54,7 +55,9 @@ public class Controller {
             Csv df = new Csv(file);
             String txt = log.getText() + "\r\n";
             log.setText(txt + "> Open File(" + file + ")");
-
+            Table table = new Table(file.getName(), textFields);
+            table.presentColumnView(grid);
+            table.presentTable(grid,textFields);
         }
     }
 
@@ -62,11 +65,11 @@ public class Controller {
 
         textFields = new TextField[DEFAULT_SIZE];
 
-        for(int cols=0; cols<DEFAULT_SIZE; cols++){
+        String tableName = JOptionPane.showInputDialog("Please insert Table name:","Untitled");
+        Table table = new Table(tableName, textFields);
+        table.presentColumnView(grid);
+        table.presentTable(grid,textFields);
 
-            Column col = new Column(textFields,cols);
-            col.addDataColumn(grid);
-        }
 
 
         String txt = log.getText() + "\r\n";

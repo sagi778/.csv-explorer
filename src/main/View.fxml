@@ -8,10 +8,8 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="850.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.Controller">
@@ -59,8 +57,9 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <children>
-                                <HBox layoutX="3.0" layoutY="4.0" prefHeight="704.0" prefWidth="792.0">
+                                <HBox fx:id="dataFrameHb" layoutX="3.0" layoutY="4.0" prefHeight="704.0" prefWidth="792.0">
                            <children>
+                              <VBox fx:id="columnView_vb" prefHeight="704.0" prefWidth="160.0" />
                               <GridPane fx:id="grid">
 
                               </GridPane>
