@@ -25,7 +25,25 @@ public class Column <E>{
     private TextField[] textFields;
     private Button header;
 
-    public Column(TextField[] textFields,int colNumber) {
+    public void setColName(String colName) {
+        this.colName = colName;
+    }
+    public int getRows() {
+        return rows;
+    }
+    public void setRows(int rows) {
+        this.rows = rows;
+    }
+
+    public Column(String colName){
+        this.colName = colName;
+    }
+    public Column(String colName, int colNumber){
+
+        this.colName = colName;
+        this.colNumber = colNumber;
+    }
+    public Column(TextField[] textFields, int colNumber) {
 
         this.colNumber = colNumber;
         this.rows = textFields.length;
@@ -35,19 +53,21 @@ public class Column <E>{
 
     public void addDataColumn(GridPane grid){
 
+        int COLUMN_SHIFT = 3;
+
         for(int row=0; row<rows; row++){
 
             if( isHeader( row ) ){
                 header = new Button("Column" + colNumber);
                 header.setPrefSize(90,30);
-                grid.add( header, colNumber,row );
+                grid.add( header, colNumber+COLUMN_SHIFT,row );
             }
             else {
                 textFields[row] = new TextField();
                 textFields[row].setPrefSize(90, 30);
                 textFields[row].setAlignment(Pos.CENTER);
                 textFields[row].setFont(Font.font(null, FontWeight.LIGHT, 11));
-                grid.add( textFields[row], colNumber,row );
+                grid.add( textFields[row], colNumber+COLUMN_SHIFT,row );
             }
 
         }
@@ -59,6 +79,20 @@ public class Column <E>{
         return false;
     }
 
+
+    public String getColName() {
+        return colName;
     }
+
+    public void addEntry(E entry){
+        data.add(entry);
+        setRows( getRows()+1 );
+        textFields = new TextField[this.getRows() + 1];
+        textFields[this.getRows()] = new TextField();
+        textFields[this.getRows()].setText((String) entry);
+
+
+    }
+}
 
 
