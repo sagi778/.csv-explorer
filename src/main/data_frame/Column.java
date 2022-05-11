@@ -72,6 +72,27 @@ public class Column <E>{
 
         }
     }
+    public void addDataColumn( Column<E> column, Table table, GridPane grid){
+
+        int COLUMN_SHIFT = 3;
+
+        for(int row=0; row < column.getRows(); row++){
+
+            if( isHeader( row ) ){
+                header = new Button( column.getColName() );
+                header.setPrefSize(90,30);
+                grid.add( header, colNumber+COLUMN_SHIFT,row );
+            }
+            else {
+                textFields[row] = new TextField();
+                textFields[row].setPrefSize(90, 30);
+                textFields[row].setAlignment(Pos.CENTER);
+                textFields[row].setFont(Font.font(null, FontWeight.LIGHT, 11));
+                grid.add( textFields[row], colNumber+COLUMN_SHIFT,row );
+            }
+
+        }
+    }
 
     private boolean isHeader(int row){
         if( row == 0 )
