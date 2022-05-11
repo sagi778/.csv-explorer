@@ -55,6 +55,7 @@ public class Controller {
             Csv df = new Csv(file);
             String txt = log.getText() + "\r\n";
             log.setText(txt + "> Open File(" + file + ")");
+            textFields = new TextField[df.getRows()];
             Table table = new Table(file.getName(), textFields);
             table.presentColumnView(grid);
             table.presentTable(grid,textFields);
