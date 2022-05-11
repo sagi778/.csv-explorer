@@ -22,7 +22,7 @@
                      <graphic>
                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="file:/C:/Users/sagic/IdeaProjects/MyDD_Project/img/file-64.png" />
+                              <Image url="img/file-64.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -31,7 +31,7 @@
                      <graphic>
                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="file:/C:/Users/sagic/IdeaProjects/MyDD_Project/img/add-folder-64.png" />
+                              <Image url="img/add-folder-64.png" />
                            </image>
                         </ImageView>
                      </graphic></Button>
@@ -39,7 +39,7 @@
                      <graphic>
                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="file:/C:/Users/sagic/IdeaProjects/MyDD_Project/img/save-64.png" />
+                              <Image url="img/save-64.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -70,7 +70,7 @@
                <graphic>
                   <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="file:/C:/Users/sagic/IdeaProjects/MyDD_Project/img/grid-64.png" />
+                        <Image url="img/grid-64.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -82,7 +82,7 @@
                <graphic>
                   <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="file:/C:/Users/sagic/IdeaProjects/MyDD_Project/img/graph-64.png" />
+                        <Image url="img/graph-64.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -102,7 +102,7 @@
                <graphic>
                   <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="file:/C:/Users/sagic/IdeaProjects/MyDD_Project/img/video-playlist-64.png" />
+                        <Image url="img/video-playlist-64.png" />
                      </image>
                   </ImageView>
                </graphic>
