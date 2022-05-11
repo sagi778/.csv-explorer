@@ -61,7 +61,7 @@ public class Table {
         this.presentColumnView(grid);
 
         for(Column item: columns){
-            item.addDataColumn(grid);
+            item.addDataColumn( item, this, grid);
         }
     }
     public void presentColumnView(GridPane grid){
