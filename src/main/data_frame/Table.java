@@ -35,18 +35,6 @@ public class Table {
         }
 
     }
-    public Table(String name, TextField[] textFields) {
-
-        this.textFields = textFields;
-        this.name = name;
-
-        for(int i=0; i<DEFAULT; i++){
-            this.columns.add( new Column(textFields,i) );/////////////////////////////////////problem when loading csv file!
-            //this.textFields[i].setText("sdfsdf" );
-        }
-        this.rows = columns.get(0).getRows();
-
-    }
 
     public ArrayList<Column> getColumns() {
         return columns;
@@ -56,15 +44,16 @@ public class Table {
     }
 
     //methods
-    public void presentTable(GridPane grid,TextField[] textFields){
+    public void drawTable(GridPane grid){
 
-        this.presentColumnView(grid);
+        this.drawColumnSidePanel(grid);
 
-        for(Column item: columns){
-            item.addDataColumn( item, this, grid);
+        for(Column column: this.columns){
+            int num = column.getColNumber();
+            column.drawColumn(grid, num);
         }
     }
-    public void presentColumnView(GridPane grid){
+    public void drawColumnSidePanel(GridPane grid){
 
         TextField tableName = new TextField();
         tableName.setText( this.name );

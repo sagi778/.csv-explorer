@@ -51,14 +51,17 @@ public class Controller {
         fileChooser.setTitle("Open *.CSV File:");
 
         File file = fileChooser.showOpenDialog(null);
+
         if(file != null){
             Csv df = new Csv(file);
             String txt = log.getText() + "\r\n";
             log.setText(txt + "> Open File(" + file + ")");
-            textFields = new TextField[df.getRows()];
-            Table table = new Table(file.getName(), textFields);
-            table.presentColumnView(grid);
-            table.presentTable(grid,textFields);
+
+            textFields = new TextField[ df.getRows() ];
+
+            Table table = df.getDataFrame();
+            //table.drawColumnSidePanel(grid);
+            table.drawTable(grid);
         }
     }
 
@@ -67,16 +70,15 @@ public class Controller {
         textFields = new TextField[DEFAULT_SIZE];
 
         String tableName = JOptionPane.showInputDialog("Please insert Table name:","Untitled");
-        Table table = new Table(tableName, textFields);
-        table.presentColumnView(grid);
-        table.presentTable(grid,textFields);
+        //Table table = new Table(tableName, textFields);
+        //table.presentColumnView(grid);
+        //table.presentTable(grid,textFields);
 
 
 
         String txt = log.getText() + "\r\n";
         log.setText(txt + "> New File");
     }
-
     public void saveAct(ActionEvent event) {
         String txt = log.getText() + "\r\n";
         log.setText(txt + "> Save File");

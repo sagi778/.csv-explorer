@@ -54,16 +54,13 @@ public class Csv {
                 }
                 row += 1;
             }
-            System.out.println("reading file complete");
+            System.out.println("> reading file completed");
 
 
         }
         catch(Exception e){
             e.printStackTrace();
         }
-
-
-
 
         finally {
             try {
@@ -80,5 +77,9 @@ public class Csv {
 
     public int getRows(){
         return row;
+    }
+
+    public Table getDataFrame() {
+        return df;
     }
 }

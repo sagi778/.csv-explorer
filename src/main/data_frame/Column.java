@@ -19,15 +19,12 @@ public class Column <E>{
     private String colName = "Column";
     private int colNumber = 0;
     private int rows = DEFAULT_ROWS;
-    private ArrayList<E> data = new ArrayList<E>();
+    private ArrayList<String> data = new ArrayList<String>();
 
     //visual attributes
     private TextField[] textFields;
     private Button header;
 
-    public void setColName(String colName) {
-        this.colName = colName;
-    }
     public int getRows() {
         return rows;
     }
@@ -51,47 +48,33 @@ public class Column <E>{
         this.header = new Button(colName + colNumber);
     }
 
-    public void addDataColumn(GridPane grid){
+    public void drawColumn(GridPane grid, int columnNumber){
 
-        int COLUMN_SHIFT = 3;
+        int COLUMN_SHIFT = 3; // for creating space for table details on the left side
 
-        for(int row=0; row<rows; row++){
+        for(int row=0; row < this.getRows(); row++){
 
             if( isHeader( row ) ){
-                header = new Button("Column" + colNumber);
-                header.setPrefSize(90,30);
-                grid.add( header, colNumber+COLUMN_SHIFT,row );
+                grid.add( drawColumnHeader(), columnNumber + COLUMN_SHIFT,row );
             }
             else {
-                textFields[row] = new TextField();
-                textFields[row].setPrefSize(90, 30);
-                textFields[row].setAlignment(Pos.CENTER);
-                textFields[row].setFont(Font.font(null, FontWeight.LIGHT, 11));
-                grid.add( textFields[row], colNumber+COLUMN_SHIFT,row );
+                grid.add( drawColumnDataRow(row), columnNumber + COLUMN_SHIFT,row ); /////////////////////////////////////////////////////
             }
 
         }
+
     }
-    public void addDataColumn( Column<E> column, Table table, GridPane grid){
-
-        int COLUMN_SHIFT = 3;
-
-        for(int row=0; row < column.getRows(); row++){
-
-            if( isHeader( row ) ){
-                header = new Button( column.getColName() );
-                header.setPrefSize(90,30);
-                grid.add( header, colNumber+COLUMN_SHIFT,row );
-            }
-            else {
-                textFields[row] = new TextField();
-                textFields[row].setPrefSize(90, 30);
-                textFields[row].setAlignment(Pos.CENTER);
-                textFields[row].setFont(Font.font(null, FontWeight.LIGHT, 11));
-                grid.add( textFields[row], colNumber+COLUMN_SHIFT,row );
-            }
-
-        }
+    private Button drawColumnHeader(){
+        header = new Button( this.getColName() );
+        header.setPrefSize(this.getColName().length()+80,30);
+        return header;
+    }
+    private TextField drawColumnDataRow(int row){
+        textFields[row] = new TextField( this.data.get(row) );
+        textFields[row].setPrefSize( drawColumnHeader().getPrefWidth(), 30);
+        textFields[row].setAlignment(Pos.CENTER);
+        textFields[row].setFont(Font.font(null, FontWeight.LIGHT, 12));
+        return textFields[row];
     }
 
     private boolean isHeader(int row){
@@ -100,12 +83,14 @@ public class Column <E>{
         return false;
     }
 
+    public int getColNumber() {
+        return colNumber;
+    }
 
     public String getColName() {
         return colName;
     }
-
-    public void addEntry(E entry){
+    public void addEntry(String entry){
         data.add(entry);
         setRows( getRows()+1 );
         textFields = new TextField[this.getRows() + 1];
