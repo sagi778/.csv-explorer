@@ -1,5 +1,7 @@
 # Nebo
-Data analysis &amp; ML tool
+stage 1> .csv simple & easy to use editor
 
-Code IDE - with AI assitence, providing func to choose from each row
+stage 2> Data analysis & visualization tool
+
+Stage 3> Code IDE - with AI assitence, providing easy to use code block
 
