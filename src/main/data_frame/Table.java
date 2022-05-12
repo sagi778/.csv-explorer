@@ -47,10 +47,10 @@ public class Table {
     public void drawTable(GridPane grid){
 
         this.drawColumnSidePanel(grid);
+        int SIDE_PANEL_SHIFT = 3; //
 
         for(Column column: this.columns){
-            int num = column.getColNumber();
-            column.drawColumn(grid, num);
+            column.drawColumn(grid, column.getColNumber() + SIDE_PANEL_SHIFT);
         }
     }
     public void drawColumnSidePanel(GridPane grid){

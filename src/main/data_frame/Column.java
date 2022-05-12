@@ -3,6 +3,7 @@ package main.data_frame;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
@@ -10,7 +11,7 @@ import javafx.scene.text.FontWeight;
 
 import java.util.ArrayList;
 
-public class Column <E>{
+public class Column{
 
     //constants
     private static int DEFAULT_ROWS = 10;
@@ -19,12 +20,15 @@ public class Column <E>{
     private String colName = "Column";
     private int colNumber = 0;
     private int rows = DEFAULT_ROWS;
-    private ArrayList<String> data = new ArrayList<String>();
+    private ArrayList<String> data = new ArrayList<>();
 
     //visual attributes
     private TextField[] textFields;
     private Button header;
 
+    public ArrayList<String> getData() {
+        return data;
+    }
     public int getRows() {
         return rows;
     }
@@ -48,19 +52,13 @@ public class Column <E>{
         this.header = new Button(colName + colNumber);
     }
 
-    public void drawColumn(GridPane grid, int columnNumber){
+    public void drawColumn(GridPane grid, int gridColumn){
 
-        int COLUMN_SHIFT = 3; // for creating space for table details on the left side
+        grid.add( new Button(this.getColName()), gridColumn, 0); //draw column header
 
-        for(int row=0; row < this.getRows(); row++){
-
-            if( isHeader( row ) ){
-                grid.add( drawColumnHeader(), columnNumber + COLUMN_SHIFT,row );
-            }
-            else {
-                grid.add( drawColumnDataRow(row), columnNumber + COLUMN_SHIFT,row ); /////////////////////////////////////////////////////
-            }
-
+        for(int row = 1; row < this.getData().size(); row++){
+            String value = this.getData().get(row);
+            grid.add( new TextField(value),gridColumn, row );
         }
 
     }

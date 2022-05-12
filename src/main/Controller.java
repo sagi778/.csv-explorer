@@ -60,7 +60,6 @@ public class Controller {
             textFields = new TextField[ df.getRows() ];
 
             Table table = df.getDataFrame();
-            //table.drawColumnSidePanel(grid);
             table.drawTable(grid);
         }
     }

@@ -12,11 +12,11 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="850.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.Controller">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="850.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.Controller">
     <children>
-        <VBox prefHeight="56.0" prefWidth="800.0">
+        <VBox prefHeight="56.0" prefWidth="1000.0">
             <children>
-                <HBox prefHeight="37.0" prefWidth="800.0" spacing="5.0">
+                <HBox prefHeight="37.0" spacing="5.0">
                     <children>
                   <Button layoutX="76.0" layoutY="15.0" mnemonicParsing="false" onAction="#newAct">
                      <graphic>
@@ -51,20 +51,19 @@
                 </HBox>
             </children>
         </VBox>
-        <TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE">
+        <TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1000.0" tabClosingPolicy="UNAVAILABLE">
             <tabs>
                 <Tab fx:id="df" text="Data Frame &gt;">
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <children>
-                                <HBox fx:id="dataFrameHb" layoutX="3.0" layoutY="4.0" prefHeight="704.0" prefWidth="792.0">
+                        <VBox prefHeight="850.0" prefWidth="1000.0" AnchorPane.topAnchor="10.0">
                            <children>
-                              <VBox fx:id="columnView_vb" prefHeight="704.0" prefWidth="160.0" />
-                              <GridPane fx:id="grid">
+                              <GridPane fx:id="grid" hgap="2.0" prefHeight="34.0" prefWidth="1000.0" vgap="1.0">
 
                               </GridPane>
                            </children>
-                                </HBox>
+                        </VBox>
                             </children></AnchorPane>
                     </content>
                <graphic>
