@@ -34,14 +34,11 @@ public class Controller {
     private TextArea log;
 
     @FXML
-    private GridPane grid;
-
-    private TextField[] textFields;
-    private Button[] headers;
+    private HBox dfHbox;
 
     @FXML
     void initialize(){
-
+        dfHbox.setSpacing(5);
 
     }
 
@@ -57,23 +54,18 @@ public class Controller {
             String txt = log.getText() + "\r\n";
             log.setText(txt + "> Open File(" + file + ")");
 
-            textFields = new TextField[ df.getRows() ];
+            //textFields = new TextField[ df.getRows() ];
 
-            Table table = df.getDataFrame();
-            table.drawTable(grid);
+            //Table table = df.getDataFrame();
+            //table.drawTable(grid);
         }
     }
 
     public void newAct(ActionEvent event) {
 
-        textFields = new TextField[DEFAULT_SIZE];
+        //String tableName = JOptionPane.showInputDialog("Please insert Table name:","Untitled");
 
-        String tableName = JOptionPane.showInputDialog("Please insert Table name:","Untitled");
-        //Table table = new Table(tableName, textFields);
-        //table.presentColumnView(grid);
-        //table.presentTable(grid,textFields);
-
-
+        dfHbox.getChildren().add(new Table().getVisuals());
 
         String txt = log.getText() + "\r\n";
         log.setText(txt + "> New File");

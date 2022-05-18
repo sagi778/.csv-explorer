@@ -1,72 +1,37 @@
 package main.data_frame;
 
-import javafx.scene.control.Label;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.Button;
+import javafx.scene.layout.HBox;
 
 import java.util.ArrayList;
 
 public class Table {
 
     //constants
-    private static int DEFAULT = 10;
+    private static int DEFAULT_COLS = 10;
 
     //data attributes
-    private String name = "";
-    private ArrayList<Column> columns = new ArrayList<Column>();
+    private String name;
     private int rows;
+    private ArrayList<Column> columns;
 
-    //visual attributes
-    private TextField[] textFields;
-    private ArrayList<TextField> columnListView = new ArrayList<TextField>();
+    //visuals
+    private HBox hb;
+    private ArrayList<Button> buttons;
 
-    //constructors
-    public Table(String name) {
+    public Table(){
+        this.name = "MyTable";
+        this.hb = new HBox();
+        this.columns = new ArrayList<>();
 
-        this.name = name;
-        if( columns.size()!=0 ){
-            this.rows = columns.get(0).getRows();
-        }
-        else{
-            this.rows = 0;
-        }
-
-    }
-
-    public ArrayList<Column> getColumns() {
-        return columns;
-    }
-    public void addColumn(Column col) {
-        this.columns.add( col );
-    }
-
-    //methods
-    public void drawTable(GridPane grid){
-
-        this.drawColumnSidePanel(grid);
-        int SIDE_PANEL_SHIFT = 3; //
-
-        for(Column column: this.columns){
-            column.drawColumn(grid, column.getColNumber() + SIDE_PANEL_SHIFT);
+        for(int i=0; i<DEFAULT_COLS; i++){
+            Column column = new Column();
+            this.columns.add(i, column);
+            this.hb.getChildren().add(this.columns.get(i).getVisuals());
         }
     }
-    public void drawColumnSidePanel(GridPane grid){
 
-        TextField tableName = new TextField();
-        tableName.setText( this.name );
-
-        Label tableTitle = new Label();
-        tableTitle.setText("Table: ");
-        tableTitle.setMinWidth(40);
-
-        Pane space = new Pane();
-        space.setMinWidth(10);
-
-        grid.add( tableTitle ,0,0);
-        grid.add( tableName ,1,0);
-        grid.add( space ,2,0);
+    public HBox getVisuals() {
+        return hb;
     }
 }

@@ -30,7 +30,7 @@ public class Csv {
         try{
             reader = new BufferedReader(new FileReader(file));
 
-            this.df = new Table(fileName);
+            //this.df = new Table(fileName);
             ArrayList< String[] > data = new ArrayList< String[] >();
 
             while( (line = reader.readLine())!= null ){
@@ -41,15 +41,15 @@ public class Csv {
 
                     String[] headers = data.get(0);
                     for(int i=0; i<headers.length; i++){ //creating new columns
-                        this.df.getColumns().add( new Column( headers[i], i) );
+                        //this.df.getColumns().add( new Column( headers[i], i) );
                     }
                 }
                 else {
                     data.add(row, line.split(","));
                     String[] currentRow = data.get(row);
                     for (int i = 0; i < currentRow.length; i++) { //adding current row value to each column
-                        Column currentColumn = this.df.getColumns().get(i);
-                        currentColumn.addEntry(currentRow[i]);
+                        //Column currentColumn = this.df.getColumns().get(i);
+                        //currentColumn.addEntry(currentRow[i]);
                     }
                 }
                 row += 1;
