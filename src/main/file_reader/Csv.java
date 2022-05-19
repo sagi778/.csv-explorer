@@ -11,57 +11,50 @@ import java.util.ArrayList;
 
 public class Csv {
 
-
     /** calss for reading data from csv file */
-    private File file = null;
-    private String path = "";
-    private String fileName = "";
+    private File file;
+    private String path;
+    private String fileName;
     private int row = 0;
-    private Table df;
+    private Table dataFrame;
 
     public Csv(File file){
 
-        file = file;
-        path = file.getPath();
-        fileName = path.substring(path.lastIndexOf("\\")+1,path.length()-4);
+        this.file = file;
+        this.path = file.getPath();
+        this.fileName = path.substring(path.lastIndexOf("\\")+1,path.length()-4);
         BufferedReader reader = null;
         String line = "";
 
         try{
             reader = new BufferedReader(new FileReader(file));
 
-            //this.df = new Table(fileName);
-            ArrayList< String[] > data = new ArrayList< String[] >();
+            this.dataFrame = new Table( this.file);
 
             while( (line = reader.readLine())!= null ){
 
                 if( row == 0 ){
-
-                    data.add( row,line.split(",") );
-
-                    String[] headers = data.get(0);
+                    String[] headers = line.split(",");
+                    ArrayList<Column> columnList = this.dataFrame.getColumns();
                     for(int i=0; i<headers.length; i++){ //creating new columns
-                        //this.df.getColumns().add( new Column( headers[i], i) );
+                        columnList.add(new Column(headers[i]));
                     }
                 }
                 else {
-                    data.add(row, line.split(","));
-                    String[] currentRow = data.get(row);
+                    String[] currentRow = line.split(",");
                     for (int i = 0; i < currentRow.length; i++) { //adding current row value to each column
-                        //Column currentColumn = this.df.getColumns().get(i);
-                        //currentColumn.addEntry(currentRow[i]);
+                        Column currentColumn = this.dataFrame.getColumns().get(i);
+                        currentColumn.addEntry( currentRow[i] );
                     }
                 }
                 row += 1;
             }
+            //this.getDataFrame().setRowNumber(row);
             System.out.println("> reading file completed");
-
-
         }
         catch(Exception e){
             e.printStackTrace();
         }
-
         finally {
             try {
                 reader.close();
@@ -74,12 +67,13 @@ public class Csv {
     public File getFile() {
         return file;
     }
-
+    public String getFileName() {
+        return fileName;
+    }
     public int getRows(){
         return row;
     }
-
     public Table getDataFrame() {
-        return df;
+        return dataFrame;
     }
 }

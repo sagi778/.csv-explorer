@@ -50,22 +50,19 @@ public class Controller {
         File file = fileChooser.showOpenDialog(null);
 
         if(file != null){
-            Csv df = new Csv(file);
+            Csv csvFile = new Csv(file);
             String txt = log.getText() + "\r\n";
             log.setText(txt + "> Open File(" + file + ")");
 
-            //textFields = new TextField[ df.getRows() ];
-
-            //Table table = df.getDataFrame();
-            //table.drawTable(grid);
+            Table table = csvFile.getDataFrame();
+            //Table table = new Table("temp table");
+            dfHbox.getChildren().add(table.getVisuals());
         }
     }
-
     public void newAct(ActionEvent event) {
 
-        //String tableName = JOptionPane.showInputDialog("Please insert Table name:","Untitled");
-
-        dfHbox.getChildren().add(new Table().getVisuals());
+        String tableName = JOptionPane.showInputDialog("Please insert Table name:","Untitled");
+        dfHbox.getChildren().add(new Table(tableName).getVisuals());
 
         String txt = log.getText() + "\r\n";
         log.setText(txt + "> New File");
