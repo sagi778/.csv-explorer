@@ -1,5 +1,6 @@
 package main.file_reader;
 
+import javafx.scene.layout.VBox;
 import main.data_frame.Column;
 import main.data_frame.Table;
 
@@ -37,7 +38,7 @@ public class Csv {
                     String[] headers = line.split(",");
                     ArrayList<Column> columnList = this.dataFrame.getColumns();
                     for(int i=0; i<headers.length; i++){ //creating new columns
-                        columnList.add(new Column(headers[i]));
+                        this.getDataFrame().addColumn( new Column(headers[i]) );
                     }
                 }
                 else {
@@ -48,8 +49,8 @@ public class Csv {
                     }
                 }
                 row += 1;
+                this.getDataFrame().setRowNumber(row);
             }
-            //this.getDataFrame().setRowNumber(row);
             System.out.println("> reading file completed");
         }
         catch(Exception e){

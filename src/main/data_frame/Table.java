@@ -14,7 +14,7 @@ public class Table {
     private static int DEFAULT_COLS = 10;
 
     //data attributes
-    private TableTitle tableTitle;
+    private Title title;
     private int rows;
     private ArrayList<Column> columns;
 
@@ -25,15 +25,17 @@ public class Table {
 
     public Table(File file){
 
-        this.tableTitle = new TableTitle( file.getName() );
+        this.title = new Title( file.getName() );
         this.columns = new ArrayList<>();
         this.vb = new VBox();
         this.vb.setSpacing(10);
         this.hb = new HBox();
+
+        this.vb.getChildren().addAll(this.title.getVisuals(), this.hb);
     }
     public Table(String tableName){
 
-        this.tableTitle = new TableTitle(tableName);
+        this.title = new Title(tableName);
         this.vb = new VBox();
         this.vb.setSpacing(10);
         this.hb = new HBox();
@@ -41,11 +43,10 @@ public class Table {
 
         for(int i=0; i<DEFAULT_COLS; i++){
             Column column = new Column();
-            this.columns.add(i, column);
-            this.hb.getChildren().add(this.columns.get(i).getVisuals());
+            this.addColumn( column );
         }
 
-        this.vb.getChildren().addAll(this.tableTitle.getVisuals(), this.hb);
+        this.vb.getChildren().addAll(this.title.getVisuals(), this.hb);
     }
 
     public VBox getVisuals() {
@@ -58,6 +59,10 @@ public class Table {
         return this.columns.get(colNumber);
     }
 
+    public void addColumn(Column newColumn){
+        columns.add( newColumn );
+        hb.getChildren().add( newColumn.getVisuals() );
+    }
     public void setRowNumber(int rows){
         this.rows = rows;
     }

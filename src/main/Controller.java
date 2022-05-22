@@ -55,8 +55,8 @@ public class Controller {
             log.setText(txt + "> Open File(" + file + ")");
 
             Table table = csvFile.getDataFrame();
-            //Table table = new Table("temp table");
-            dfHbox.getChildren().add(table.getVisuals());
+            VBox vb = table.getVisuals();
+            dfHbox.getChildren().add(vb);
         }
     }
     public void newAct(ActionEvent event) {
