@@ -36,7 +36,10 @@ public class Column{
         this.setTitleButton(this.columnTitle);
         COLUMN_COUNTER += 1;
         this.rows = 0;
-        textFields = new ArrayList<>();
+        textFields = new ArrayList<TextField>();
+
+        this.vb.getChildren().add(columnTitle);
+        this.vb.getChildren().addAll(textFields);
     }
     public Column(){
 
@@ -46,7 +49,7 @@ public class Column{
         this.setTitleButton(this.columnTitle);
         COLUMN_COUNTER += 1;
         this.rows = 0;
-        textFields = new ArrayList<>();
+        textFields = new ArrayList<TextField>();
 
         for(int i=0; i<DEFAULT_ROWS; i++){
             this.addEmptyEntry();

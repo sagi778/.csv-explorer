@@ -54,9 +54,7 @@ public class Controller {
             String txt = log.getText() + "\r\n";
             log.setText(txt + "> Open File(" + file + ")");
 
-            Table table = csvFile.getDataFrame();
-            VBox vb = table.getVisuals();
-            dfHbox.getChildren().add(vb);
+            dfHbox.getChildren().add( csvFile.getDataFrame().getVisuals() );
         }
     }
     public void newAct(ActionEvent event) {
