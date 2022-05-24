@@ -38,6 +38,7 @@ public class Controller {
 
     @FXML
     void initialize(){
+
         dfHbox.setSpacing(5);
 
     }
@@ -53,14 +54,15 @@ public class Controller {
             Csv csvFile = new Csv(file);
             String txt = log.getText() + "\r\n";
             log.setText(txt + "> Open File(" + file + ")");
-
-            dfHbox.getChildren().add( csvFile.getDataFrame().getVisuals() );
+            Table df = csvFile.getDataFrame();
+            dfHbox.getChildren().add( df.getVisuals() );
         }
     }
     public void newAct(ActionEvent event) {
 
         String tableName = JOptionPane.showInputDialog("Please insert Table name:","Untitled");
-        dfHbox.getChildren().add(new Table(tableName).getVisuals());
+        Table df = new Table(tableName);
+        dfHbox.getChildren().add(df.getVisuals());
 
         String txt = log.getText() + "\r\n";
         log.setText(txt + "> New File");

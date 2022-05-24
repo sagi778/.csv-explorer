@@ -32,7 +32,7 @@ public class Column{
 
         this.vb = new VBox();
         this.colName = colName;
-        this.columnTitle = new Button();
+        this.columnTitle = new Button(this.colName);
         this.setTitleButton(this.columnTitle);
         COLUMN_COUNTER += 1;
         this.rows = 0;
@@ -70,9 +70,15 @@ public class Column{
             }
         });
     }
-    private void setDataCellField(TextField cell){
+    private void setColumnConfigs(TextField cell){
 
-        cell.setPrefWidth(DEFAULT_WIDTH);
+        if( this.colName.length() > DEFAULT_WIDTH ) {
+            cell.setPrefWidth(this.colName.length());
+        }
+        else{
+            cell.setPrefWidth(DEFAULT_WIDTH);
+        }
+
         cell.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -93,7 +99,9 @@ public class Column{
 
     public void addEntry(String value){
         data.add(value); //add data value
-        textFields.add( new TextField(value)); //add visual text field
+        TextField entry = new TextField(value);
+        textFields.add( entry ); //add visual text field
+        this.setColumnConfigs(entry); //set visual configuration
         this.vb.getChildren().add(textFields.get(textFields.size()-1)); //add visuals to vbox
         this.rows ++;
     }
