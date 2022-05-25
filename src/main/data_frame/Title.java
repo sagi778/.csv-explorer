@@ -27,4 +27,5 @@ public class Title {
     public HBox getVisuals(){
         return hb;
     }
+
 }

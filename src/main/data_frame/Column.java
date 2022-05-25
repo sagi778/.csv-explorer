@@ -3,11 +3,13 @@ package main.data_frame;
 import com.sun.javafx.scene.input.ExtendedInputMethodRequests;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Point2D;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.InputMethodEvent;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 
@@ -63,6 +65,9 @@ public class Column{
 
         button.setPrefWidth(DEFAULT_WIDTH);
         button.setText(button.getText());
+        button.setBackground(new Background(new BackgroundFill(Color.ALICEBLUE,CornerRadii.EMPTY, Insets.EMPTY)));
+        button.setBorder(new Border(new BorderStroke(Color.gray(0.8), BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+
         button.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -78,6 +83,9 @@ public class Column{
         else{
             cell.setPrefWidth(DEFAULT_WIDTH);
         }
+
+        cell.setBackground( new Background(new BackgroundFill(Color.FLORALWHITE,CornerRadii.EMPTY, Insets.EMPTY)));
+        cell.setBorder(new Border(new BorderStroke(Color.gray(0.8), BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 
         cell.setOnAction(new EventHandler<ActionEvent>() {
             @Override
