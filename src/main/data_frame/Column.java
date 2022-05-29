@@ -13,7 +13,7 @@ import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 
-public class Column{
+public class Column extends Thread{
 
     //constants
     private static int DEFAULT_ROWS = 10;

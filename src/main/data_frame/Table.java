@@ -1,6 +1,7 @@
 package main.data_frame;
 
 import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import main.file_reader.Csv;
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 public class Table {
 
     //constants
-    private static int DEFAULT_COLS = 10;
+    private static int DEFAULT_COLS = 15;
 
     //data attributes
     private Title title;
@@ -21,6 +22,7 @@ public class Table {
     //visuals
     private VBox vb;
     private HBox hb;
+    private ScrollPane scrollPane;
     private ArrayList<Button> buttons;
 
     public Table(File file){
@@ -29,8 +31,10 @@ public class Table {
         this.columns = new ArrayList<>();
         this.vb = new VBox();
         this.vb.setSpacing(10);
+        this.scrollPane = new ScrollPane(); //test
         this.hb = new HBox();
 
+        this.scrollPane.setContent(this.hb); //test
         this.vb.getChildren().addAll(this.title.getVisuals(), this.hb);
     }
     public Table(String tableName){
@@ -39,6 +43,7 @@ public class Table {
         this.vb = new VBox();
         this.vb.setSpacing(10);
         this.hb = new HBox();
+        this.scrollPane = new ScrollPane(); //test
         this.columns = new ArrayList<>();
 
         for(int i=0; i<DEFAULT_COLS; i++){
@@ -46,6 +51,7 @@ public class Table {
             this.addColumn( column );
         }
 
+        this.scrollPane.setContent(this.hb); //test
         this.vb.getChildren().addAll(this.title.getVisuals(), this.hb);
     }
 
