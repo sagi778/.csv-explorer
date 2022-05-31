@@ -13,17 +13,18 @@ import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 
-public class Column extends Thread{
+public class Column{
 
     //constants
     private static int DEFAULT_ROWS = 10;
     private static int COLUMN_COUNTER = 0;
-    private static int DEFAULT_WIDTH = 100;
+    private static int DEFAULT_WIDTH = 150;
 
     //data attributes
     private String colName;
     private int rows;
     private ArrayList<String> data = new ArrayList<String>();
+    private Stats stats;
 
     //visuals
     private VBox vb;
@@ -61,6 +62,7 @@ public class Column extends Thread{
         this.vb.getChildren().add(columnTitle);
         this.vb.getChildren().addAll(textFields);
     } //new empty column
+
     private void setTitleButton(Button button){
 
         button.setPrefWidth(DEFAULT_WIDTH);
@@ -104,6 +106,9 @@ public class Column extends Thread{
     public int getRowNumber(){
         return (this.rows+1);
     }
+    public ArrayList<String> getData() {
+        return data;
+    }
 
     public void addEntry(String value){
         data.add(value); //add data value
@@ -116,6 +121,7 @@ public class Column extends Thread{
     public void addEmptyEntry(){
         addEntry("");
     }
+
 
 }
 

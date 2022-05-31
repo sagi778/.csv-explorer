@@ -34,6 +34,8 @@ public class Table {
         this.scrollPane = new ScrollPane(); //test
         this.hb = new HBox();
 
+        this.getColumnsStats();
+
         this.scrollPane.setContent(this.hb); //test
         this.vb.getChildren().addAll(this.title.getVisuals(), this.hb);
     }
@@ -51,10 +53,20 @@ public class Table {
             this.addColumn( column );
         }
 
+        this.getColumnsStats();
+
         this.scrollPane.setContent(this.hb); //test
         this.vb.getChildren().addAll(this.title.getVisuals(), this.hb);
     }
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    private void getColumnsStats(){
 
+        for(Column item: this.getColumns()){
+            Stats stats = new Stats(item);
+            stats.start();
+        }
+    }
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public VBox getVisuals() {
         return vb;
     }
