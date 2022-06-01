@@ -50,6 +50,7 @@ public class Csv {
                 }
                 row += 1;
                 this.getDataFrame().setRowNumber(row);
+                this.getDataFrame().getColumnsStats(); //test
             }
             System.out.println("> reading file completed");
         }

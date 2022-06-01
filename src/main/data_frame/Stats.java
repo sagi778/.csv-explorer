@@ -15,13 +15,19 @@ public class Stats extends Thread{ //class for collecting all Column related sta
     @Override
     public void run(){
 
-        isCalculating = true;
-        this.mean = getMean();
-        isCalculating = false;
+        this.mean = setMean();
+
     }
 
-    private double getMean(){
+    private synchronized double setMean(){
 
+        while( isCalculating ){
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
         double mean = 0;
         for(String item: column.getData()){
             if( isNumeric(item)){
@@ -31,6 +37,29 @@ public class Stats extends Thread{ //class for collecting all Column related sta
         System.out.println( "Column[" + column.getColumnName() + "].getMean() = " + mean);
         return mean;
     }
+    private synchronized double setStd(){
+
+        while( isCalculating ){
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        double mean = 0;
+        for(String item: column.getData()){
+            if( isNumeric(item)){
+                mean += Double.parseDouble(item);
+            }
+        }
+        System.out.println( "Column[" + column.getColumnName() + "].getMean() = " + mean);
+        return mean;
+    }
+
+    public double getMean() {
+        return mean;
+    }
+
     private boolean isNumeric(String item){
 
         if(item.length()==0)
