@@ -1,7 +1,8 @@
 # Nebo
-stage 1> .csv simple & easy to use editor
+Data frame tab:
+1. .csv editor - simple & easy to use.
+2. data manipulations controlled by column.
+3. basic column statistics.
 
-stage 2> Data analysis & visualization tool
 
-Stage 3> Code IDE - with AI assitence, providing easy to use code blocks (= code with lego blocks)
 
