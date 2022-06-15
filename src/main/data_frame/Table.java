@@ -24,7 +24,6 @@ public class Table {
     //visuals
     private Tab tab;
     private HBox hb;
-    private ArrayList<Button> buttons;
 
     public Table(File file){
 
@@ -37,7 +36,13 @@ public class Table {
         this.summaryPanel = new SummaryPanel();
         hb.getChildren().add(summaryPanel.getItem());
         vb.getChildren().addAll(this.title.getItem(),hb);
-        this.tab.setContent(vb);
+
+        ScrollPane scrollPane = new ScrollPane();
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        scrollPane.setContent(vb);
+
+        this.tab.setContent(scrollPane);
     }
     public Table(String tableName){
 
@@ -48,6 +53,7 @@ public class Table {
         vb.setFillWidth(true);
         vb.setSpacing(5);
         vb.setMargin(this.title.getItem(), new Insets(5,5,5,5));
+
         this.hb = new HBox();
         vb.setMargin(hb, new Insets(0,5,5,5));
 
@@ -63,7 +69,13 @@ public class Table {
         //this.getColumnsStats();
 
         vb.getChildren().addAll(this.title.getItem(),hb);
-        this.tab.setContent(vb);
+
+        ScrollPane scrollPane = new ScrollPane();
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        scrollPane.setContent(vb);
+
+        this.tab.setContent(scrollPane);
         this.tab.setText(tableName);
 
     }
