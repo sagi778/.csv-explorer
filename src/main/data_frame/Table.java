@@ -27,16 +27,18 @@ public class Table {
 
     public Table(File file){
 
-        this.tab = new Tab();
         this.title = new Title( file.getName() );
+        this.tab = new Tab(file.getName());
         this.columns = new ArrayList<>();
         VBox vb = new VBox();
 
         this.hb = new HBox();
         this.summaryPanel = new SummaryPanel();
         hb.getChildren().add(summaryPanel.getItem());
+        hb.setSpacing(3);
         vb.getChildren().addAll(this.title.getItem(),hb);
         vb.setMargin(this.title.getItem(), new Insets(5,5,5,5));
+        vb.setMargin(hb, new Insets(0,5,5,5));
 
         ScrollPane scrollPane = new ScrollPane(vb);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
@@ -55,6 +57,7 @@ public class Table {
         vb.setMargin(this.title.getItem(), new Insets(5,5,5,5));
 
         this.hb = new HBox();
+        hb.setSpacing(3);
         vb.setMargin(hb, new Insets(0,5,5,5));
 
         this.columns = new ArrayList<>();
