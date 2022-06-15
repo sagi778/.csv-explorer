@@ -3,62 +3,71 @@ package main.data_frame;
 public class Stats extends Thread{ //class for collecting all Column related statistics
 
     private Column column;
-    private boolean isCalculating = false;
     private double mean;
+    private int n;
+    private double min;
+    private double max;
+    private double std;
 
     public Stats(Column column){
         this.column = column;
-        this.isCalculating = false;
-        this.mean = 0.0;
+        this.n = -1;
+        this.mean = -1;
+        this.min = -1;
+        this.max = -1;
     }
 
     @Override
     public void run(){
 
-        this.mean = setMean();
+        setN();
+        System.out.println("column." + this.column.getColumnName() + " n = " + this.n);
+        setMean();
+        System.out.println("column." + this.column.getColumnName() + " mean = " + this.mean);
+        setStd();
+        System.out.println("column." + this.column.getColumnName() + "std = " + this.std);
 
     }
 
-    private synchronized double setMean(){
+    private int getN() {
 
-        while( isCalculating ){
-            try {
-                wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-        double mean = 0;
+        return n;
+    }
+    private double getMean() {
+
+        return this.mean;
+    }
+    public double getStd() {
+        return std;
+    }
+
+    private void setN(){
+        this.n = 0;
         for(String item: column.getData()){
-            if( isNumeric(item)){
-                mean += Double.parseDouble(item);
-            }
+            if(!item.equals(""))
+                this.n ++;
         }
-        System.out.println( "Column[" + column.getColumnName() + "].getMean() = " + mean);
-        return mean;
     }
-    private synchronized double setStd(){
+    private void setMean(){
 
-        while( isCalculating ){
-            try {
-                wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-        double mean = 0;
+        double sum = 0;
         for(String item: column.getData()){
-            if( isNumeric(item)){
-                mean += Double.parseDouble(item);
-            }
+            if(item.equals(""))
+                sum += Double.parseDouble(item);
         }
-        System.out.println( "Column[" + column.getColumnName() + "].getMean() = " + mean);
-        return mean;
+        this.mean = sum/this.getN();
+    }
+    private void setStd(){
+
+        double dv = 0;
+        for(String item: column.getData()){
+            if(item.equals(""))
+                dv += Math.pow(Double.parseDouble(item) - getMean(),2);
+        }
+        this.std = Math.pow(dv/this.getN(),0.5);
     }
 
-    public double getMean() {
-        return mean;
-    }
+
 
     private boolean isNumeric(String item){
 

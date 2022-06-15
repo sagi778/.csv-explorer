@@ -36,9 +36,9 @@ public class Csv {
 
                 if( row == 0 ){
                     String[] headers = line.split(",");
-                    ArrayList<Column> columnList = this.dataFrame.getColumns();
+
                     for(int i=0; i<headers.length; i++){ //creating new columns
-                        this.getDataFrame().addColumn( new Column(headers[i]) );
+                        //this.getDataFrame().addColumn( new Column(headers[i]) );
                     }
                 }
                 else {

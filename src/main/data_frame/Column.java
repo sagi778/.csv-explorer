@@ -67,8 +67,8 @@ public class Column{
 
         button.setPrefWidth(DEFAULT_WIDTH);
         button.setText(button.getText());
-        button.setBackground(new Background(new BackgroundFill(Color.ALICEBLUE,CornerRadii.EMPTY, Insets.EMPTY)));
-        button.setBorder(new Border(new BorderStroke(Color.gray(0.8), BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+        //button.setBackground(new Background(new BackgroundFill(Color.ALICEBLUE,CornerRadii.EMPTY, Insets.EMPTY)));
+        //button.setBorder(new Border(new BorderStroke(Color.gray(0.8), BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 
         button.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -86,7 +86,7 @@ public class Column{
             cell.setPrefWidth(DEFAULT_WIDTH);
         }
 
-        cell.setBackground( new Background(new BackgroundFill(Color.FLORALWHITE,CornerRadii.EMPTY, Insets.EMPTY)));
+        //cell.setBackground( new Background(new BackgroundFill(Color.FLORALWHITE,CornerRadii.EMPTY, Insets.EMPTY)));
         cell.setBorder(new Border(new BorderStroke(Color.gray(0.8), BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 
         cell.setOnAction(new EventHandler<ActionEvent>() {
@@ -100,7 +100,7 @@ public class Column{
     public String getColumnName() {
         return colName;
     }
-    public VBox getVisuals() {
+    public VBox getItem() {
         return vb;
     }
     public int getRowNumber(){

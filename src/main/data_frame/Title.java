@@ -4,6 +4,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 public class Title {
 
@@ -13,6 +14,7 @@ public class Title {
     private Label label;
     private TextField textField;
 
+    //visuals
     private HBox hb;
 
     public Title(String tableName){
@@ -24,7 +26,7 @@ public class Title {
         this.hb.getChildren().addAll(this.label, this.textField);
     }
 
-    public HBox getVisuals(){
+    public HBox getItem(){
         return hb;
     }
 

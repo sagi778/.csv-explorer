@@ -2,44 +2,37 @@ package main;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
+import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.effect.BlendMode;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.stage.FileChooser;
-import main.data_frame.Column;
 import main.data_frame.Table;
 import main.file_reader.Csv;
-import javafx.scene.control.Button;
 
 import javax.swing.*;
 import java.io.File;
-import java.util.ArrayList;
 
 public class Controller {
 
     private static int DEFAULT_SIZE = 10;
 
     @FXML
-    private Tab viz;
+    private Tab df,viz;
 
     @FXML
-    private Tab df;
+    private TabPane tables;
 
     @FXML
     private TextArea log;
 
-    @FXML
-    private HBox dfHbox;
 
     @FXML
     void initialize(){
-
-        dfHbox.setSpacing(5);
+        tables.setBackground(new Background(new BackgroundFill(Color.WHITESMOKE,CornerRadii.EMPTY, Insets.EMPTY)));
+        df.setClosable(true);
 
     }
 
@@ -56,14 +49,14 @@ public class Controller {
             log.setText(txt + "> Open File(" + file + ")");
             Table df = csvFile.getDataFrame();
 
-            dfHbox.getChildren().add( df.getVisuals() );
+            //dfHbox.getChildren().add( df.getItem() );
         }
     }
     public void newAct(ActionEvent event) {
 
         String tableName = JOptionPane.showInputDialog("Please insert Table name:","Untitled");
         Table df = new Table(tableName);
-        dfHbox.getChildren().add(df.getVisuals());
+        tables.getTabs().add(df.getItem()); //adding table tab
 
         String txt = log.getText() + "\r\n";
         log.setText(txt + "> New File");

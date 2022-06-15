@@ -1,62 +1,71 @@
 package main.data_frame;
 
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Tab;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import main.file_reader.Csv;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
 
 public class Table {
 
     //constants
-    private static int DEFAULT_COLS = 15;
+    private static int DEFAULT_COLS = 10;
 
     //data attributes
     private Title title;
     private int rows;
     private ArrayList<Column> columns;
+    private SummaryPanel summaryPanel;
 
     //visuals
-    private VBox vb;
+    private Tab tab;
     private HBox hb;
-    private ScrollPane scrollPane;
     private ArrayList<Button> buttons;
 
     public Table(File file){
 
         this.title = new Title( file.getName() );
         this.columns = new ArrayList<>();
-        this.vb = new VBox();
-        this.vb.setSpacing(10);
-        this.scrollPane = new ScrollPane(); //test
-        this.hb = new HBox();
+        VBox vb = new VBox();
+        vb.setSpacing(10);
 
-
-        this.scrollPane.setContent(this.hb); //test
-        this.vb.getChildren().addAll(this.title.getVisuals(), this.hb);
+        HBox hb = new HBox();
+        this.summaryPanel = new SummaryPanel();
+        hb.getChildren().add(summaryPanel.getItem());
+        vb.getChildren().addAll(this.title.getItem(),hb);
+        this.tab.setContent(vb);
     }
     public Table(String tableName){
 
         this.title = new Title(tableName);
-        this.vb = new VBox();
-        this.vb.setSpacing(10);
+        this.tab = new Tab(tableName);
+
+        VBox vb = new VBox();
+        vb.setFillWidth(true);
+        vb.setSpacing(5);
+        vb.setMargin(this.title.getItem(), new Insets(5,5,5,5));
         this.hb = new HBox();
-        this.scrollPane = new ScrollPane(); //test
+        vb.setMargin(hb, new Insets(0,5,5,5));
+
         this.columns = new ArrayList<>();
+        this.summaryPanel = new SummaryPanel();
+        hb.getChildren().add(summaryPanel.getItem());
 
         for(int i=0; i<DEFAULT_COLS; i++){
             Column column = new Column();
             this.addColumn( column );
         }
 
-        this.getColumnsStats();
+        //this.getColumnsStats();
 
-        this.scrollPane.setContent(this.hb); //test
-        this.vb.getChildren().addAll(this.title.getVisuals(), this.hb);
+        vb.getChildren().addAll(this.title.getItem(),hb);
+        this.tab.setContent(vb);
+        this.tab.setText(tableName);
+
     }
 
     public void getColumnsStats(){
@@ -71,8 +80,8 @@ public class Table {
         }
     }
 
-    public VBox getVisuals() {
-        return vb;
+    public Tab getItem() {
+        return tab;
     }
     public ArrayList<Column> getColumns() {
         return columns;
@@ -83,7 +92,7 @@ public class Table {
 
     public void addColumn(Column newColumn){
         columns.add( newColumn );
-        hb.getChildren().add( newColumn.getVisuals() );
+        this.hb.getChildren().add( newColumn.getItem() );
     }
     public void setRowNumber(int rows){
         this.rows = rows;
