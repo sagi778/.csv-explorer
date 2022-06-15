@@ -16,9 +16,9 @@ import java.util.ArrayList;
 public class Column{
 
     //constants
-    private static int DEFAULT_ROWS = 10;
-    private static int COLUMN_COUNTER = 0;
-    private static int DEFAULT_WIDTH = 150;
+    private int DEFAULT_ROWS = 10;
+    private int COLUMN_COUNTER = 0;
+    private int DEFAULT_WIDTH = 150;
 
     //data attributes
     private String colName;

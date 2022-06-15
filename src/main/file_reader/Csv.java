@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class Csv {
 
-    /** calss for reading data from csv file */
+    /** class for reading data from csv file */
     private File file;
     private String path;
     private String fileName;
@@ -38,7 +38,7 @@ public class Csv {
                     String[] headers = line.split(",");
 
                     for(int i=0; i<headers.length; i++){ //creating new columns
-                        //this.getDataFrame().addColumn( new Column(headers[i]) );
+                        this.getDataFrame().addColumn( new Column(headers[i]) );
                     }
                 }
                 else {

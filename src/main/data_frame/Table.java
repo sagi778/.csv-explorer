@@ -27,20 +27,20 @@ public class Table {
 
     public Table(File file){
 
+        this.tab = new Tab();
         this.title = new Title( file.getName() );
         this.columns = new ArrayList<>();
         VBox vb = new VBox();
-        vb.setSpacing(10);
 
-        HBox hb = new HBox();
+        this.hb = new HBox();
         this.summaryPanel = new SummaryPanel();
         hb.getChildren().add(summaryPanel.getItem());
         vb.getChildren().addAll(this.title.getItem(),hb);
+        vb.setMargin(this.title.getItem(), new Insets(5,5,5,5));
 
-        ScrollPane scrollPane = new ScrollPane();
+        ScrollPane scrollPane = new ScrollPane(vb);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
-        scrollPane.setContent(vb);
 
         this.tab.setContent(scrollPane);
     }
@@ -70,10 +70,9 @@ public class Table {
 
         vb.getChildren().addAll(this.title.getItem(),hb);
 
-        ScrollPane scrollPane = new ScrollPane();
+        ScrollPane scrollPane = new ScrollPane(vb);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
-        scrollPane.setContent(vb);
 
         this.tab.setContent(scrollPane);
         this.tab.setText(tableName);

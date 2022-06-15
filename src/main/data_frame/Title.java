@@ -26,6 +26,9 @@ public class Title {
         this.hb.getChildren().addAll(this.label, this.textField);
     }
 
+    public String getTableName() {
+        return tableName;
+    }
     public HBox getItem(){
         return hb;
     }

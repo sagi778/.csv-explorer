@@ -49,7 +49,7 @@ public class Controller {
             log.setText(txt + "> Open File(" + file + ")");
             Table df = csvFile.getDataFrame();
 
-            //dfHbox.getChildren().add( df.getItem() );
+            tables.getTabs().add(df.getItem()); //adding table tab
         }
     }
     public void newAct(ActionEvent event) {
