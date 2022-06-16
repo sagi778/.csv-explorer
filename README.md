@@ -1,6 +1,4 @@
 # Nebo
-
-##Agenda 
 --------
 Data frame tab:
 1. .csv editor - simple & easy to use.
