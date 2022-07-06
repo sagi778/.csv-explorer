@@ -1,115 +1,63 @@
 package main.data_frame;
 
 import javafx.geometry.Insets;
-import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-import java.io.File;
 import java.util.ArrayList;
 
 public class Table {
 
-    //constants
-    private static int DEFAULT_COLS = 10;
-
     //data attributes
-    private Title title;
-    private int rows;
+    private String name;
     private ArrayList<Column> columns;
-    private SummaryPanel summaryPanel;
 
     //visuals
     private Tab tab;
+    private HBox mainPanel;
+    private ScrollPane scrollPane;
     private HBox hb;
+    private VBox statsPanel;
 
-    public Table(File file){
+    public Table(String name){
 
-        this.title = new Title( file.getName() );
-        this.tab = new Tab(file.getName());
-        this.columns = new ArrayList<>();
-        VBox vb = new VBox();
-
+        this.name = name;
+        this.columns = new ArrayList<Column>();
+        this.tab = new Tab(name);
+        this.scrollPane = new ScrollPane();
+        this.scrollPane.setMinWidth(900);
         this.hb = new HBox();
-        this.summaryPanel = new SummaryPanel();
-        hb.getChildren().add(summaryPanel.getItem());
-        hb.setSpacing(3);
-        vb.getChildren().addAll(this.title.getItem(),hb);
-        vb.setMargin(this.title.getItem(), new Insets(5,5,5,5));
-        vb.setMargin(hb, new Insets(0,5,5,5));
+        this.hb.setSpacing(3);
+        this.hb.setPadding(new Insets(5,5,5,5));
 
-        ScrollPane scrollPane = new ScrollPane(vb);
+        this.mainPanel = new HBox();
+        this.mainPanel.setPadding(new Insets(5,5,5,5));
+
+        this.statsPanel = new VBox();
+        this.statsPanel.getChildren().add(new Label("Statistics:             "));
+
+        this.scrollPane.setContent(this.hb);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
-        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
 
-        this.tab.setContent(scrollPane);
+        this.mainPanel.getChildren().addAll(this.statsPanel,this.scrollPane);
     }
-    public Table(String tableName){
 
-        this.title = new Title(tableName);
-        this.tab = new Tab(tableName);
+    public void addColumn(Column column){
 
-        VBox vb = new VBox();
-        vb.setFillWidth(true);
-        vb.setSpacing(5);
-        vb.setMargin(this.title.getItem(), new Insets(5,5,5,5));
+        this.columns.add(column);
+        this.hb.getChildren().add(column.getView());
+        //this.tab.setContent(this.scrollPane);
 
-        this.hb = new HBox();
-        hb.setSpacing(3);
-        vb.setMargin(hb, new Insets(0,5,5,5));
-
-        this.columns = new ArrayList<>();
-        this.summaryPanel = new SummaryPanel();
-        hb.getChildren().add(summaryPanel.getItem());
-
-        for(int i=0; i<DEFAULT_COLS; i++){
-            Column column = new Column();
-            this.addColumn( column );
-        }
-
-        //this.getColumnsStats();
-
-        vb.getChildren().addAll(this.title.getItem(),hb);
-
-        ScrollPane scrollPane = new ScrollPane(vb);
-        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
-        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
-
-        this.tab.setContent(scrollPane);
-        this.tab.setText(tableName);
+        //test 1
+        this.tab.setContent(this.mainPanel);
 
     }
 
-    public void getColumnsStats(){
-
-        ArrayList<Stats> arr = new ArrayList<Stats>();
-
-        for(Column item: this.getColumns()){
-            arr.add( new Stats(item));
-        }
-        for(Stats item: arr){
-            item.start();
-        }
+    public Tab getView(){
+        return this.tab;
     }
-
-    public Tab getItem() {
-        return tab;
-    }
-    public ArrayList<Column> getColumns() {
-        return columns;
-    }
-    public Column getColumn(int colNumber){
-        return this.columns.get(colNumber);
-    }
-
-    public void addColumn(Column newColumn){
-        columns.add( newColumn );
-        this.hb.getChildren().add( newColumn.getItem() );
-    }
-    public void setRowNumber(int rows){
-        this.rows = rows;
-    }
-
 }

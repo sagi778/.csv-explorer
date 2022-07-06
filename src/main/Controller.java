@@ -9,7 +9,6 @@ import javafx.scene.effect.BlendMode;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
-import main.data_frame.Table;
 import main.file_reader.Csv;
 
 import javax.swing.*;
@@ -31,6 +30,7 @@ public class Controller {
 
     @FXML
     void initialize(){
+
         tables.setBackground(new Background(new BackgroundFill(Color.WHITESMOKE,CornerRadii.EMPTY, Insets.EMPTY)));
         df.setClosable(true);
 
@@ -47,16 +47,15 @@ public class Controller {
             Csv csvFile = new Csv(file);
             String txt = log.getText() + "\r\n";
             log.setText(txt + "> Open File(" + file + ")");
-            Table df = csvFile.getDataFrame();
 
-            tables.getTabs().add(df.getItem()); //adding table tab
+            tables.getTabs().add(csvFile.getTable().getView()); //adding table tab
         }
     }
     public void newAct(ActionEvent event) {
 
         String tableName = JOptionPane.showInputDialog("Please insert Table name:","Untitled");
-        Table df = new Table(tableName);
-        tables.getTabs().add(df.getItem()); //adding table tab
+        //Table df = new Table(tableName);
+        //tables.getTabs().add(df.getItem()); //adding table tab
 
         String txt = log.getText() + "\r\n";
         log.setText(txt + "> New File");
