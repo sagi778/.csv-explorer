@@ -17,11 +17,14 @@ public class Column{
     //data attributes
     private String colName;
     private ArrayList<String> data = new ArrayList<String>();
+    private boolean isSelected; //for creating stats
+    private String type;
     private int n;
 
     //visuals
     private VBox vb;
     private Button header;
+    private VBox statsVB;
 
     //constants
     private double WIDTH = 80;
@@ -36,7 +39,8 @@ public class Column{
         this.vb.setMaxWidth(MAX_WIDTH);
 
         this.colName = data.get(0);
-        this.n = data.size();
+        this.isSelected = false;
+        this.type = "Numerical";
 
         this.header = new Button(colName);
         this.header.setPrefWidth(WIDTH);
@@ -52,16 +56,29 @@ public class Column{
         this.header.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                ////////////////////////////////////////////////////////////////////////////////////////////
+                if( isSelected ){
+                    setUnSelected();
+                    header.getParent().setEffect(null);
+                }
+                else{
+                    setSelected();
+                    DropShadow shadow = new DropShadow();
+                    shadow.setColor(Color.DODGERBLUE);
+                    header.getParent().setEffect(shadow);
 
-                DropShadow shadow = new DropShadow();
-                shadow.setColor(Color.DODGERBLUE);
-                header.getParent().setEffect(shadow);
-
-                //new Stats(col);
-
+                }
+                ////////////////////////////////////////////////////////////////////////////////////////////
                 System.out.println("column pressed");
             }
         });
+    }
+
+    public void setSelected(){
+        this.isSelected = true;
+    }
+    public void setUnSelected(){
+        this.isSelected = false;
     }
 
     private void addEntry(String value){
@@ -96,6 +113,14 @@ public class Column{
     }
     public ArrayList<String> getData() {
         return data;
+    }
+    public String getColName() {
+        return colName;
+    }
+
+
+    public int getN() {
+        return data.size();
     }
 }
 
