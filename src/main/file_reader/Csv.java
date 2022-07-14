@@ -71,11 +71,13 @@ public class Csv {
             this.table.addColumn( new Column(temp) );
 
         }
+        this.getTable().addSidePanel();
         System.out.println("csv to Table is completed");
     }
 
     public Table getTable(){
         return this.table;
     }
+
 
 }

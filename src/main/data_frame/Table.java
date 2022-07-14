@@ -1,6 +1,11 @@
 package main.data_frame;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -20,7 +25,7 @@ public class Table {
     private HBox mainPanel;
     private ScrollPane scrollPane;
     private HBox hb;
-    private VBox statsPanel;
+    private VBox sidePanel;
 
     public Table(String name){ //creating empty table - columns added later with addColumn()
 
@@ -36,34 +41,24 @@ public class Table {
         this.mainPanel = new HBox();
         this.mainPanel.setPadding(new Insets(5,5,5,5));
 
-        this.statsPanel = getStatsPanel();
+        this.sidePanel = new VBox();
 
         this.scrollPane.setContent(this.hb);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
 
-        this.mainPanel.getChildren().addAll(this.statsPanel, this.scrollPane);
+        //this.mainPanel.getChildren().addAll(this.sidePanel, this.scrollPane);
     }
 
-    public VBox getStatsPanel(){
 
-        double MIN_WIDTH = 150;
-        double TF_WIDTH = 80;
+    public Column getColumn(String colName){
 
-        VBox vb = new VBox();
-        vb.setMinWidth(MIN_WIDTH);
-
-        int items = 0;
-        TextField itemsTf = new TextField( items + "");
-        itemsTf.setPrefWidth(TF_WIDTH);
-        Label itemsLabel = new Label("Items = ");
-        HBox itemsView = new HBox();
-        itemsView.getChildren().addAll(itemsLabel, itemsTf);
-        vb.getChildren().add(itemsView);
-
-        return vb;
+        for(Column item: this.columns){
+            if(colName==item.getColName())
+                return item;
+        }
+        return null;
     }
-
     public void addColumn(Column column){
 
         if( this.columns == null ){ //set first column as selected
@@ -75,6 +70,51 @@ public class Table {
         this.tab.setContent(this.mainPanel);
 
     }
+    public void addSidePanel(){
+
+        this.sidePanel = new VBox();
+        this.sidePanel.setMinWidth(140);
+        this.sidePanel.setSpacing(5);
+        this.sidePanel.getChildren().add( this.getTableTitle() );
+        this.sidePanel.getChildren().add( this.getColumnsSection() );
+
+        this.mainPanel = new HBox();
+        this.mainPanel.setSpacing(5);
+        this.mainPanel.setPadding(new Insets(5,5,5,5));
+        this.mainPanel.getChildren().addAll(this.sidePanel, this.scrollPane);
+
+        this.tab.setContent(this.mainPanel);
+    }
+
+    //side panel sections
+    private HBox getTableTitle(){
+
+        double TF_WIDTH = 80;
+        double TF_HEIGHT = 10;
+
+        String TXT = "Table: ";
+        HBox hb = new HBox();
+
+        Label label = new Label(TXT);
+
+        TextField textField = new TextField( this.name + "");
+        textField.setPrefWidth(TF_WIDTH);
+        textField.setPrefHeight(TF_HEIGHT);
+        textField.setAlignment(Pos.CENTER_LEFT);
+
+        hb.getChildren().addAll(label, textField);
+        return hb;
+    }
+    private HBox getColumnsSection(){
+
+        HBox hb = new HBox();
+        Label label = new Label("Column: ");
+        String[] columnList = {"1","2"};
+        ComboBox cb = new ComboBox(FXCollections.observableArrayList(columnList));
+        hb.getChildren().addAll(label,cb);
+        return hb;
+    }
+
     public void selectColumn(Column column){
         this.selectedColumn = column;
     }

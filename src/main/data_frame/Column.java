@@ -2,15 +2,21 @@ package main.data_frame;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
+import java.io.IOException;
 import java.util.ArrayList;
+
 
 public class Column{
 
@@ -25,6 +31,9 @@ public class Column{
     private VBox vb;
     private Button header;
     private VBox statsVB;
+
+    @FXML
+    private TextArea edaText; ///////////////////////test - causing error!!!
 
     //constants
     private double WIDTH = 80;
@@ -57,15 +66,24 @@ public class Column{
             @Override
             public void handle(ActionEvent event) {
                 ////////////////////////////////////////////////////////////////////////////////////////////
-                if( isSelected ){
+
+                Column selectedColumn = getColumn(header.getText());
+
+                if( selectedColumn.isSelected ){
                     setUnSelected();
+                    System.out.println( selectedColumn.getColName() + " un-selected" );
                     header.getParent().setEffect(null);
                 }
                 else{
-                    setSelected();
+                    selectedColumn.setSelected();
+                    System.out.println( selectedColumn.getColName() + " selected" );
                     DropShadow shadow = new DropShadow();
                     shadow.setColor(Color.DODGERBLUE);
                     header.getParent().setEffect(shadow);
+
+                    System.out.println( "Items: " + selectedColumn.getN());
+                    System.out.println( "Mean: " + selectedColumn.getMean());
+                    edaText.setText(selectedColumn.getColName());
 
                 }
                 ////////////////////////////////////////////////////////////////////////////////////////////
@@ -108,6 +126,11 @@ public class Column{
         this.vb.getChildren().add(tf);
     }
 
+    public Column getColumn(String colName){
+        if(colName==this.getColName())
+            return this;
+        else return null;
+    }
     public VBox getView(){
         return this.vb;
     }
@@ -121,6 +144,14 @@ public class Column{
 
     public int getN() {
         return data.size();
+    }
+    public double getMean(){
+        double sum = 0;
+        for(String item: data){
+            sum += Double.parseDouble(item);
+        }
+        return (sum/getN());
+
     }
 }
 

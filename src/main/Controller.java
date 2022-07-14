@@ -19,13 +19,13 @@ public class Controller {
     private static int DEFAULT_SIZE = 10;
 
     @FXML
-    private Tab df,viz;
+    private Tab df;
 
     @FXML
     private TabPane tables;
 
     @FXML
-    private TextArea log;
+    private TextArea log,edaText;
 
 
     @FXML
